@@ -136,8 +136,8 @@ function to_t9($text){
         $counter = $counter +1
     }) -join ' '
 
-    1..9 | %{
-        $result = $result -replace "$_ $_","$($_)_$($_)"
+    0..9 + @('*','#') | %{
+        $result = ($result -replace "$_ $_","$($_)_$($_)") -replace "$_ $_","$($_)_$($_)"
     }
     $result
 }

@@ -217,10 +217,10 @@ function to_t9($text){
     }) -join ' '
 
     # Oh.. if two consecutive characters use the same key, denote it with an undescore instead of a space
-    # F%@k it, I don't wan't to make this clean. For all numbers from 1 to 9, replace every occurence of a space
-    # that hast this number in front of it AND after it with an underscore
-    1..9 | %{
-        $result = $result -replace "$_ $_","$($_)_$($_)"
+    # F%@k it, I don't wan't to make this clean. For all numbers from 0 to 9 plus the * and # key, replace every occurence of a space
+    # that hast this character in front of it AND after it with an underscore. Also do it twice for those pesky single digit key presses that are missed otherwise
+    0..9 + @('*','#') | %{
+        $result = ($result -replace "$_ $_","$($_)_$($_)") -replace "$_ $_","$($_)_$($_)"
     }
     $result
 }
